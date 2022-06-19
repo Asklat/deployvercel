@@ -5,11 +5,15 @@ const Linea = require('../models/linea');
 
 router.get('/api/lineas', cors(), async (req, res) => {
     try {
-        const prueba = await Linea.find({})
-        res.send(prueba)
+        const lineas = await Linea.find({})
+        lineas.sort(function (a, b) {
+            const pa = a.nombre.split(" ")
+            const pb = b.nombre.split(" ")
+            return pa[1] - pb[1]
+        });
+        res.send(lineas)
     } catch (e) {
         res.status(500).send()
     }
 })
-
 module.exports = router

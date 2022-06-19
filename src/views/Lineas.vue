@@ -19,7 +19,7 @@
       <div id="container">
         <ion-grid>
           <ion-row>
-            <ion-col size="3">
+            <ion-col size="5">
               <ion-item>
                 <ion-label>Linea</ion-label>
                 <ion-select interface="popover" :selected-text="lineaDefaul.nombre" @ionChange="itChangedLinea">
@@ -43,16 +43,16 @@
             <ion-col v-if="paradas" size="4">
               <ion-item>
                 <ion-list>
-                  <ion-label>{{lineaDefaul.nombrePrimerSentido}}</ion-label>
-                  <ion-item 
+                  <ion-label @click="swapSentidoP1()">{{lineaDefaul.nombrePrimerSentido}}</ion-label>
+                  <ion-item v-if="togglep1"
                   v-for="paradaPS in paradas.paradasPrimerSentido"
                   >{{paradaPS.nombre}}</ion-item>
                 </ion-list>
               </ion-item>
               <ion-item>
                 <ion-list>
-                  <ion-label>{{lineaDefaul.nombreSegundoSentido}}</ion-label>
-                  <ion-item 
+                  <ion-label @click="swapSentidoP2()">{{lineaDefaul.nombreSegundoSentido}}</ion-label>
+                  <ion-item v-if="togglep2"
                   v-for="paradaSS in paradas.paradasSegundoSentido"
                   >{{paradaSS.nombre}}</ion-item>
                 </ion-list>
@@ -94,9 +94,13 @@ export default defineComponent({
   data() {
     let name = 'Lineas'
     let lineas: any
+    let togglep1 = true
+    let togglep2 = false
     return {
       name,
-      lineas
+      lineas,
+      togglep1,
+      togglep2
     };
   },
   setup() {
@@ -106,8 +110,7 @@ export default defineComponent({
     const itChangedLinea = async (v: any) => {
       lineaDefaul.value = v.detail.value
       paradas.value = await loadParadas.LoadData(lineaDefaul.value._id)
-    };
-
+    }
     return {
       itChangedLinea,
       lineaDefaul,
@@ -115,7 +118,6 @@ export default defineComponent({
     }
   },
   async mounted() {
-    
     this.lineas = await loadLineas.LoadData()
     this.lineaDefaul = this.lineas.find((e:any) => e.nombre === 'Linea 1')
     this.paradas = await loadParadas.LoadData(this.lineas[0]._id)
@@ -126,7 +128,12 @@ export default defineComponent({
     }
   },
   methods: {
-
+    swapSentidoP1() {
+      this.togglep1 = !this.togglep1
+    },
+    swapSentidoP2() {
+      this.togglep2 = !this.togglep2
+    },
     loadMap(linea: string) {
       let mapsrc: string = ''
       switch (linea) {
