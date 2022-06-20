@@ -61,7 +61,6 @@ IonList, IonListHeader, IonSelect, IonSelectOption,IonImg,IonThumbnail,IonGrid, 
 import { page } from "../controllador/PageChange"
 
 export default defineComponent({
-  name: 'Horarios',
   components: {
     IonButtons,
     IonContent,

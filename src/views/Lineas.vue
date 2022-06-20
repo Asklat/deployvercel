@@ -70,10 +70,9 @@
 import { defineComponent, ref } from 'vue';
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonGrid, IonRow, IonCol, IonItem, IonLabel,IonList } from '@ionic/vue';
 import { loadLineas } from "../services/lineasService"
-import { loadParadas } from "../services/paradasService"
+import { loadParada } from "../services/paradaService"
 
 export default defineComponent({
-  name: 'Lineas',
   components: {
     IonButtons,
     IonContent,
@@ -109,7 +108,7 @@ export default defineComponent({
     const lineaDefaul = ref<any>('No se ha encontrado lineas');
     const itChangedLinea = async (v: any) => {
       lineaDefaul.value = v.detail.value
-      paradas.value = await loadParadas.LoadData(lineaDefaul.value._id)
+      paradas.value = await loadParada.LoadData(lineaDefaul.value._id)
     }
     return {
       itChangedLinea,
@@ -120,7 +119,8 @@ export default defineComponent({
   async mounted() {
     this.lineas = await loadLineas.LoadData()
     this.lineaDefaul = this.lineas.find((e:any) => e.nombre === 'Linea 1')
-    this.paradas = await loadParadas.LoadData(this.lineas[0]._id)
+    console.log(this.lineas[0]._id)
+    this.paradas = await loadParada.LoadData(this.lineas[0]._id)
     
     if (this.lineas.message == 'Network Error') {
       this.lineaDefaul = {nombre: 'No se ha encontrado lineas'}

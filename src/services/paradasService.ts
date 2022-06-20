@@ -1,9 +1,9 @@
 import axios from "axios";
 class LoadParadas {
-    async LoadData(id:any) {
+    async LoadData() {
         let data:any
         try {
-            let res = await axios.get(`http://127.0.0.1:3000/api/parada?id=${id}`);
+            let res = await axios.get(`http://127.0.0.1:3000/api/paradas`);
             data = res.data
         } catch (error) {
             data = error

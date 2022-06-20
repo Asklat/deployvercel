@@ -46,12 +46,12 @@ export default defineComponent({
   setup() {
     const selectedIndex = ref(0);
     const appPages = [
-      {
-        title: 'Mapa',
-        url: '/mapa',
-        iosIcon: mapOutline,
-        mdIcon: mapSharp
-      },
+      // {
+      //   title: 'Mapa',
+      //   url: '/mapa',
+      //   iosIcon: mapOutline,
+      //   mdIcon: mapSharp
+      // },
       {
         title: 'Paradas',
         url: '/paradas',

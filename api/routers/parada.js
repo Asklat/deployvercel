@@ -3,14 +3,12 @@ const cors = require('cors');
 const router = new express.Router()
 const Parada = require('../models/parada');
 const Linea = require('../models/linea');
-const { ObjectId } = require('mongodb');
 
 router.get('/api/parada', cors(), async (req, res) => {
     try {
         if(!req.query.id){
             return res.send({
-                error: 'Se debe pasar un id',
-                linea: linea
+                error: 'Se debe pasar un id'
             })
         }
         const linea = await Linea.findById(req.query.id)
@@ -20,6 +18,29 @@ router.get('/api/parada', cors(), async (req, res) => {
             paradasPrimerSentido: paradasPrimerSentido,
             paradasSegundoSentido: paradasSegundoSentido
         }
+        res.send(paradas)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.get('/api/paradasimple', cors(), async (req, res) => {
+    try {
+        if(!req.query.id){
+            return res.send({
+                error: 'Se debe pasar un id'
+            })
+        }
+        const parada = await Parada.findById(req.query.id)
+        res.send(parada)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.get('/api/paradas', cors(), async (req, res) => {
+    try {
+        const paradas = await Parada.find({})
         res.send(paradas)
     } catch (e) {
         res.status(500).send()

@@ -17,22 +17,17 @@
       </ion-header>
 
       <div id="container">
-        <ion-card v-for="parada in paradas.value">
-          <ion-card-header>
-            <ion-card-title>{{parada.nombre}}</ion-card-title>
-            <br>
-            <ion-button :href="ruta(parada)">Ir</ion-button>
-          </ion-card-header>
-        </ion-card>
+        
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { onBeforeMount, reactive } from 'vue';
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton } from '@ionic/vue';
-import { loadParadas } from "../services/paradasService"
+import { onBeforeMount, reactive, ref } from 'vue';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { useRoute } from 'vue-router';
+import { loadParada } from "../services/paradaService"
 
 export default {
   components: {
@@ -42,29 +37,23 @@ export default {
     IonMenuButton,
     IonPage,
     IonTitle,
-    IonToolbar,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonButton
+    IonToolbar
   },
   setup() {
-    const name = 'Paradas'
-    const paradas = reactive<any>({})
+    const route = useRoute()
+    const { id } = route.params
+
+    const parada = reactive<any>({})
+    const name = ref<string>()
 
     onBeforeMount(async () => {
-      paradas.value = await loadParadas.LoadData()
+        parada.value = await loadParada.LoadDataSimple(id)
+        name.value = parada.value.nombre
     })
 
     return {
       name,
-      paradas
-    }
-  },
-  methods: {
-    ruta(parada:any){
-      return `/paradas/${parada._id}`
+      parada
     }
   }
 }
