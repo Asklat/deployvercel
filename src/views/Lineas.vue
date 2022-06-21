@@ -141,7 +141,7 @@ export default defineComponent({
           mapsrc = 'https://www.google.com/maps/d/embed?mid=1cVe0lNVcBPY5RMtt-wSR3Ltl2hAVXcoo&ehbc=2E312F'
           break;
         case 'Linea 2':
-          mapsrc = ''
+          mapsrc = 'https://www.google.com/maps/d/embed?mid=18tZAxIVFY_tVF2exK55pZdONHem_zlmC&ehbc=2E312F'
           break;
         case 'Linea 3':
           mapsrc = 'https://www.google.com/maps/d/embed?mid=10RiaVTScAGNEGWFEnOmEItUqOj07Mu6S&ehbc=2E312F'
