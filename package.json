@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "dev": "concurrently \"vue-cli-service serve\" \"npm run test\"",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "concurrently \"vue-cli-service build\" \"npm run test\"",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
